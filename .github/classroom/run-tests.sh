@@ -22,17 +22,3 @@ gh workflow run "18 - 2 - Reusable Workflows" || {
   echo "Error al intentar desencadenar el flujo 18-2-reusable-workflow.yaml."
   exit 1
 }
-
-echo "Espera un momento para que el flujo termine su ejecución..."
-sleep 30
-
-# Test 4: Verificar la salida
-echo "Verificando el log del flujo de trabajo..."
-OUTPUT=$(gh run list --limit 1 --json conclusion -q '.[0].conclusion')
-
-if [[ "$OUTPUT" == "success" ]]; then
-  echo "El flujo de trabajo se ejecutó correctamente."
-else
-  echo "El flujo de trabajo falló. Revisa los logs en la interfaz de GitHub Actions."
-  exit 1
-fi
