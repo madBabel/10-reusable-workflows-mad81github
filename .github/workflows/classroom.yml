@@ -13,10 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     if: github.actor != 'github-classroom[bot]'
     steps:
-    - name: Configurar GitHub CLI
+    - name: Configurar GitHub CLI con GITHUB_TOKEN
+      env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        echo "${{ secrets.GH_TOKEN }}" | gh auth login --with-token
-
+        echo $GITHUB_TOKEN | gh auth login --with-token
+        
     - name: Verificar autenticación
       run: gh auth status
     - name: Checkout code
