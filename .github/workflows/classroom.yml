@@ -20,8 +20,8 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Autograde Reusable Workflows
-        setup-command: ".github/classroom/setup.sh"
-        command: ".github/classroom/run-tests.sh"
+        setup-command: "sh .github/classroom/setup.sh"
+        command: "sh .github/classroom/run-tests.sh"
         timeout: 60
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
