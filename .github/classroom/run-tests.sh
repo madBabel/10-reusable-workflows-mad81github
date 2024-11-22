@@ -16,8 +16,9 @@ echo "Validando sintaxis YAML..."
 yamllint .github/workflows/18-1-reusable-workflow.yaml
 yamllint .github/workflows/18-2-reusable-workflow.yaml
 
-# Test 3: Simular ejecución de workflows
-echo "Simulando ejecución del workflow 18-2..."
-gh workflow run 18-2-reusable-workflow.yaml --inputs target-directory="src"
-
-echo "Verifica que el flujo de trabajo se ejecutó correctamente desde la interfaz de GitHub Actions."
+# Test 3: Desencadenar el flujo manualmente y verificar salida
+echo "Desencadenando el flujo de trabajo 18-2..."
+gh workflow run "18 - 2 - Reusable Workflows" || {
+  echo "Error al intentar desencadenar el flujo 18-2-reusable-workflow.yaml."
+  exit 1
+}

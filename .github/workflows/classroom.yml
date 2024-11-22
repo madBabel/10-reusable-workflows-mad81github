@@ -1,7 +1,9 @@
 name: Autograding Tests
-'on':
-- push
-- repository_dispatch
+on:
+  push:
+  repository_dispatch:
+  workflow_dispatch:    
+
 permissions:
   checks: write
   actions: read
@@ -11,6 +13,12 @@ jobs:
     runs-on: ubuntu-latest
     if: github.actor != 'github-classroom[bot]'
     steps:
+    - name: Configurar GitHub CLI con GITHUB_TOKEN   
+      run: |
+        echo $GITHUB_TOKEN | gh auth login --with-token
+        
+    - name: Verificar autenticación
+      run: gh auth status
     - name: Checkout code
       uses: actions/checkout@v4
     - name: Autograde Reusable Workflows
@@ -18,8 +26,8 @@ jobs:
       uses: classroom-resources/autograding-command-grader@v1
       with:
         test-name: Autograde Reusable Workflows
-        setup-command: ".github/classroom/setup.sh"
-        command: ".github/classroom/run-tests.sh"
+        setup-command: "sh .github/classroom/setup.sh"
+        command: "sh .github/classroom/run-tests.sh"
         timeout: 60
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
